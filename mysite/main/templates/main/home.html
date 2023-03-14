@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% load webpush_notifications %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<head>
+    {% webpush_header %}
+</head>
+{% webpush_button with_class="btn btn-outline-info" %}
+<h1 class="mt-2">Home Page</h1>
+<hr class="mt-0 mb-4">
+{% if request.user.is_authenticated %}
+    <h3>Welcome!</h3>
+{% else %}
+<h2><a href="/login" class="badge badge-danger">Please login</a></h2>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+View List
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<h1>{{ls.name}}</h1>
+<form method="post" action="#">
+    {% csrf_token %}
+    {% for item in ls.item_set.all %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                {% if item.complete == True %}
+                    <input type="checkbox", value="clicked", name="c{{item.id}}" checked>
+                {% else %}
+                    <input type="checkbox", value="clicked", name="c{{item.id}}">
+                {% endif %}
+            </div>
+        </div>
+        <input text="text" value="{{item.text}}" class="form-control">
+        <input ora="hour" value="{{item.ora}}" class="form-control">
+        <input ziua="ziua" value="{{item.ziua}}" class="form-control">
+    </div>
+    {% endfor %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <button type="submit" name="newItem" value="newItem" class="btn btn-success">Add Item</button>
+        </div>
+        <input type="text" name="new" placeholder="Your task">
+        <input type="date" name="data">
+        <input type="time" name="timp">
+    </div>
+    <button type="submit" name="save" value="save" class="btn btn-success">Save</button>
+</form>
+{% else %}
+<h2><a href="/login" class="badge badge-danger">Please login</a></h2>
+{%endif%}
+{% endblock %}

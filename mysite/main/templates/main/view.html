@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+View
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+  <h3><p class="text-center">Your lists</p></h3>
+  {% for td in user.todolist.all %}
+    <div class="list-group">
+      <a href="/{{td.id}}" type="button" class="list-group-item list-group-item-action list-group-item-primary"><p class="text-center">{{td.name}}</p></a>
+    </div>
+  {% endfor %}
+{% else %}
+<h2><a href="/login" class="badge badge-danger">Please login</a></h2>
+{% endif %}
+{% endblock %}
